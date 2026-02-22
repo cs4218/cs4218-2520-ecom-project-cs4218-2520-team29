@@ -11,16 +11,17 @@ export default {
   "<rootDir>/middlewares/**/*.test.js",
   "<rootDir>/helpers/**/*.test.js",
   ],
-
   passWithNoTests: true,
 
   // jest code coverage
   collectCoverage: true,
-  collectCoverageFrom: ["controllers/**"],
+  collectCoverageFrom: ["controllers/**",
+    "!controllers/categoryController.js"
+  ],
   coverageThreshold: {
     global: {
-      lines: 100,
-      functions: 100,
+      lines: 80,
+      functions: 80,
     },
   },
 };

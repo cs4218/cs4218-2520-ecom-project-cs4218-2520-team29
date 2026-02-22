@@ -163,3 +163,27 @@ To begin unit testing with Jest in your project, follow these steps:
       - forgotPasswordController
       - testController
    - controllers/authController.test.js
+
+
+   ### 2. Dexter Wong Xing You (A0255437Y)
+   - Set up CI/CD pipeline
+   - .github/workflows/ci.yml
+   - controllers/productController.js
+   - controllers/productController.test.js
+      - createProductController
+      - getProductController
+      - getSingleProductController
+      - productPhotoController
+      - deleteProductController
+      - updateProductController
+      - productFiltersController
+      - productCountController
+      - productListController
+      - searchProductController
+      - realtedProductController
+      - productCategoryController
+      - braintreeTokenController
+      - brainTreePaymentController
+
+### MS1 CI URL:
+#### https://github.com/cs4218/cs4218-2520-ecom-project-cs4218-2520-team29/actions/runs/22284877816/job/64461344736?pr=7
