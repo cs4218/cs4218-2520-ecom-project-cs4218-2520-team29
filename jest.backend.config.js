@@ -6,7 +6,11 @@ export default {
   testEnvironment: "node",
 
   // which test to run
-  testMatch: ["**/*.test.js"],
+  testMatch: [
+  "<rootDir>/controllers/**/*.test.js",
+  "<rootDir>/middlewares/**/*.test.js",
+  "<rootDir>/helpers/**/*.test.js",
+  ],
 
   passWithNoTests: true,
 
