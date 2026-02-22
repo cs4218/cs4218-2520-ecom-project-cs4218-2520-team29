@@ -147,43 +147,62 @@ To begin unit testing with Jest in your project, follow these steps:
 
 ## Workload Distribution
 ### 1. Chia Jia Ye (A0286580U)
-   - context/auth.js
-   - context/auth.test.js
-   - helpers/authHelper.js
-   - helpers/authHelper.test.js
-   - middlewares/authMiddleware.js
-   - middlewares/authMiddleware.test.js
-   - pages/Auth/Login.js
-   - pages/Auth/Login.test.js
-   - pages/Auth/Register.js
-   - pages/Auth/Register.test.js
-   - controllers/authController.js
-      - registerController
-      - loginController
-      - forgotPasswordController
-      - testController
-   - controllers/authController.test.js
+   - **Protected Routes, Registration and Login Features**
+     - context/auth.js
+     - context/auth.test.js
+     - helpers/authHelper.js
+     - helpers/authHelper.test.js
+     - middlewares/authMiddleware.js
+     - middlewares/authMiddleware.test.js
+     - pages/Auth/Login.js
+     - pages/Auth/Login.test.js
+     - pages/Auth/Register.js
+     - pages/Auth/Register.test.js
+     - controllers/authController.js
+        - registerController
+        - loginController
+        - forgotPasswordController
+        - testController
+     - controllers/authController.test.js
 
 
    ### 2. Dexter Wong Xing You (A0255437Y)
    - Set up CI/CD pipeline
    - .github/workflows/ci.yml
-   - controllers/productController.js
-   - controllers/productController.test.js
-      - createProductController
-      - getProductController
-      - getSingleProductController
-      - productPhotoController
-      - deleteProductController
-      - updateProductController
-      - productFiltersController
-      - productCountController
-      - productListController
-      - searchProductController
-      - realtedProductController
-      - productCategoryController
+   - **Product Features**
+     - controllers/productController.js
+     - controllers/productController.test.js
+        - createProductController
+        - getProductController
+        - getSingleProductController
+        - productPhotoController
+        - deleteProductController
+        - updateProductController
+        - productFiltersController
+        - productCountController
+        - productListController
+        - searchProductController
+        - realtedProductController
+        - productCategoryController
+        - braintreeTokenController
+        - brainTreePaymentController
+
+### 3. Charles Lim Jun Wei (A0277527R)
+- **Order and Payment Features**
+  - pages/user/Orders.js
+  - pages/user/Orders.test.js
+  - controllers/authController.js
+    - updateProfileController
+    - getOrdersController
+    - getAllOrdersController
+    - orderStatusController
+    - models/orderModel.js
+  - controllers/authController.order.test.js
+  - controllers/authController.js
       - braintreeTokenController
       - brainTreePaymentController
+  - controllers/productController.payment.test.js
+    
 
 ### MS1 CI URL:
 #### https://github.com/cs4218/cs4218-2520-ecom-project-cs4218-2520-team29/actions/runs/22284877816/job/64461344736?pr=7
