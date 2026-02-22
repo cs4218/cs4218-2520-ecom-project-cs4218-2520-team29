@@ -1,4 +1,4 @@
-// Charles Lim Jun Wei, A0277273R
+// Charles Lim Jun Wei, A0277527R
 import { updateProfileController, getOrdersController, getAllOrdersController, orderStatusController } from "./authController";
 
 import userModel from "../models/userModel.js";
@@ -35,7 +35,7 @@ describe('Auth Controllers', () => {
     });
 
     describe('updateProfileController', () => {
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should reject password shorter than 6 characters', async () => {
             req.body = {
                 password: '12345',
@@ -53,7 +53,7 @@ describe('Auth Controllers', () => {
             expect(userModel.findByIdAndUpdate).not.toHaveBeenCalled();
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should accept password with exactly 6 characters', async () => {
             const existingUser = {
                 _id: 'user123',
@@ -103,7 +103,7 @@ describe('Auth Controllers', () => {
             });
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should not hash password if not provided', async () => {
             const existingUser = {
                 _id: 'user123',
@@ -133,7 +133,7 @@ describe('Auth Controllers', () => {
             );
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should handle errors during password hashing', async () => {
             const existingUser = {
                 _id: 'user123',
@@ -165,7 +165,7 @@ describe('Auth Controllers', () => {
             expect(userModel.findByIdAndUpdate).not.toHaveBeenCalledWith();
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should update user profile with all fields', async () => {
             const existingUser = {
                 _id: 'user123',
@@ -219,7 +219,7 @@ describe('Auth Controllers', () => {
             });
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         // The updated field can be any of the fields (name, phone) except email
         test('should update only address and keep other field unchanged', async () => {
             const existingUser = {
@@ -256,7 +256,7 @@ describe('Auth Controllers', () => {
             );
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should handle error during profile updating', async () => {
             const error = new Error("Database error");
             userModel.findById.mockRejectedValue(error);
@@ -276,7 +276,7 @@ describe('Auth Controllers', () => {
     });
 
     describe('getOrdersController', () => {
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should get all orders for a specific user', async () => {
             const mockOrders = [
                 {
@@ -312,7 +312,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith(mockOrders);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should return empty array if user has no orders', async () => {
             const mockOrders = [];
 
@@ -327,7 +327,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith([]);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should handle errors when fetching orders', async () => {
             const error = new Error('Database error');
 
@@ -355,7 +355,7 @@ describe('Auth Controllers', () => {
     });
 
     describe('getAllOrdersController', () => {
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should return all orders sorted by creation date', async () => {
             const mockOrders = [
                 {
@@ -404,7 +404,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith(mockOrders);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should return empty array if there are no orders', async () => {
             const mockOrders = [];
 
@@ -419,7 +419,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith([]);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should handle errors when fetching all orders', async () => {
             const error = new Error('Database error');
 
@@ -447,7 +447,7 @@ describe('Auth Controllers', () => {
     });
 
     describe('orderStatusController', () => {
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should update order status', async () => {
             const mockUpdatedOrder = {
                 _id: 'order1',
@@ -469,7 +469,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith(mockUpdatedOrder);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should return null when order does not exist', async () => {
             req.params = { orderId: 'order1' };
             req.body = { status: 'Processing' };
@@ -481,7 +481,7 @@ describe('Auth Controllers', () => {
             expect(res.json).toHaveBeenCalledWith(null);
         });
 
-        // Charles Lim Jun Wei, A0277273R
+        // Charles Lim Jun Wei, A0277527R
         test('should handle errors when updating order status', async () => {
             req.params = { orderId: 'order1' };
             req.body = { status: 'Processing' };
