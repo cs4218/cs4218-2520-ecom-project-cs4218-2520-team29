@@ -431,4 +431,61 @@ describe('Auth Controllers', () => {
             expect(res.json).not.toHaveBeenCalled();
         });
     });
+
+    describe('orderStatusController', () => {
+        test('should update order status', async () => {
+            const mockUpdatedOrder = {
+                _id: 'order1',
+                status: 'Processing',
+            }
+
+            req.params = { orderId: 'order1' };
+            req.body = { status: 'Processing' };
+
+            orderModel.findByIdAndUpdate.mockResolvedValue(mockUpdatedOrder);
+
+            await orderStatusController(req, res);
+
+            expect(orderModel.findByIdAndUpdate).toHaveBeenCalledWith(
+                'order1',
+                { status: 'Processing' },
+                { new: true }
+            );
+            expect(res.json).toHaveBeenCalledWith(mockUpdatedOrder);
+        });
+
+        test('should return null when order does not exist', async () => {
+            req.params = { orderId: 'order1' };
+            req.body = { status: 'Processing' };
+
+            orderModel.findByIdAndUpdate.mockResolvedValue(null);
+
+            await orderStatusController(req, res);
+
+            expect(res.json).toHaveBeenCalledWith(null);
+        });
+
+        test('should handle errors when updating order status', async () => {
+            req.params = { orderId: 'order1' };
+            req.body = { status: 'Processing' };
+
+            // Can be invalid order_id or status too
+            const error = new Error("Database error");
+
+            orderModel.findByIdAndUpdate.mockRejectedValue(error);
+
+            await orderStatusController(req, res);
+
+            expect(consoleLogSpy).toHaveBeenCalledWith(error);
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: false,
+                    message: "Error While Updateing Order",
+                    error: expect.any(Error),
+                })
+            );
+            expect(res.json).not.toHaveBeenCalled();
+        });
+    });
 });
