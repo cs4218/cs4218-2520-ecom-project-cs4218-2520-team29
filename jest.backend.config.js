@@ -6,7 +6,9 @@ export default {
   testEnvironment: "node",
 
   // which test to run
-  testMatch: ["<rootDir>/controllers/*.test.js"],
+  testMatch: ["**/*.test.js"],
+
+  passWithNoTests: true,
 
   // jest code coverage
   collectCoverage: true,
