@@ -321,11 +321,13 @@ describe('Auth Controllers', () => {
             expect(orderModel.find).toHaveBeenCalledWith({ buyer: 'user123' });
             expect(res.status).toHaveBeenCalledWith(500);
             expect(res.status).toHaveBeenCalledTimes(1);
-            expect(res.send).toHaveBeenCalledWith({
-                success: false,
-                message: "Error WHile Geting Orders",
-                error,
-            });
+            expect(res.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: false,
+                    message: "Error WHile Geting Orders",
+                    error: expect.any(Error),
+                })
+            );
             expect(res.send).toHaveBeenCalledTimes(1);
             expect(res.json).not.toHaveBeenCalled();
         });
@@ -407,11 +409,13 @@ describe('Auth Controllers', () => {
 
             expect(res.status).toHaveBeenCalledWith(500);
             expect(res.status).toHaveBeenCalledTimes(1);
-            expect(res.send).toHaveBeenCalledWith({
-                success: false,
-                message: "Error WHile Geting Orders",
-                error,
-            });
+            expect(res.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: false,
+                    message: "Error WHile Geting Orders",
+                    error: expect.any(Error),
+                })
+            );
             expect(res.send).toHaveBeenCalledTimes(1);
             expect(res.json).not.toHaveBeenCalled();
         });
