@@ -162,7 +162,7 @@ describe('Auth Controllers', () => {
                 message: "Error While Updating Profile",
                 error,
             });
-            expect(userModel.findByIdAndUpdate).not.toHaveBeenCalledWith();
+            expect(userModel.findByIdAndUpdate).not.toHaveBeenCalled();
         });
 
         // Charles Lim Jun Wei, A0277527R
