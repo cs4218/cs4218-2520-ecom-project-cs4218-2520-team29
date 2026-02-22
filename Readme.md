@@ -144,3 +144,22 @@ To begin unit testing with Jest in your project, follow these steps:
      ```bash
      npm run test
      ```
+
+## Workload Distribution
+### 1. Chia Jia Ye (A0286580U)
+   - context/auth.js
+   - context/auth.test.js
+   - helpers/authHelper.js
+   - helpers/authHelper.test.js
+   - middlewares/authMiddleware.js
+   - middlewares/authMiddleware.test.js
+   - pages/Auth/Login.js
+   - pages/Auth/Login.test.js
+   - pages/Auth/Register.js
+   - pages/Auth/Register.test.js
+   - controllers/authController.js
+      - registerController
+      - loginController
+      - forgotPasswordController
+      - testController
+   - controllers/authController.test.js
