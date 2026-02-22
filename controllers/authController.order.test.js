@@ -45,7 +45,7 @@ describe('Auth Controllers', () => {
 
             expect(userModel.findById).toHaveBeenCalledWith('user123');
             expect(res.json).toHaveBeenCalledWith({
-                error: "Passsword is required and 6 character long"
+                error: "Password is required and 6 character long"
             });
             expect(hashPassword).not.toHaveBeenCalled();
             expect(userModel.findByIdAndUpdate).not.toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe('Auth Controllers', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.send).toHaveBeenCalledWith({
                 success: true,
-                message: 'Profile Updated SUccessfully',
+                message: 'Profile Updated Successfully',
                 updatedUser,
             });
         });
@@ -154,7 +154,7 @@ describe('Auth Controllers', () => {
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.send).toHaveBeenCalledWith({
                 success: false,
-                message: "Error WHile Update profile",
+                message: "Error While Updating Profile",
                 error,
             });
             expect(userModel.findByIdAndUpdate).not.toHaveBeenCalledWith();
@@ -208,7 +208,7 @@ describe('Auth Controllers', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.send).toHaveBeenCalledWith({
                 success: true,
-                message: 'Profile Updated SUccessfully',
+                message: 'Profile Updated Successfully',
                 updatedUser,
             });
         });
@@ -260,7 +260,7 @@ describe('Auth Controllers', () => {
             expect(res.send).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: false,
-                    message: "Error WHile Update profile",
+                    message: "Error While Updating Profile",
                     error: expect.any(Error),
                 })
             );
@@ -334,7 +334,7 @@ describe('Auth Controllers', () => {
             expect(res.send).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: false,
-                    message: "Error WHile Geting Orders",
+                    message: "Error While Getting Orders",
                     error: expect.any(Error),
                 })
             );
@@ -423,7 +423,7 @@ describe('Auth Controllers', () => {
             expect(res.send).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: false,
-                    message: "Error WHile Geting Orders",
+                    message: "Error While Getting Orders",
                     error: expect.any(Error),
                 })
             );
@@ -481,7 +481,7 @@ describe('Auth Controllers', () => {
             expect(res.send).toHaveBeenCalledWith(
                 expect.objectContaining({
                     success: false,
-                    message: "Error While Updateing Order",
+                    message: "Error While Updating Order",
                     error: expect.any(Error),
                 })
             );
