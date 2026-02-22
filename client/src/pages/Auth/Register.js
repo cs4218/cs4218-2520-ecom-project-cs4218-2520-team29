@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -63,7 +64,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter Your Email "
+              placeholder="Enter Your Email"
               required
             />
           </div>
@@ -102,7 +103,7 @@ const Register = () => {
           </div>
           <div className="mb-3">
             <input
-              type="Date"
+              type="date"
               value={DOB}
               onChange={(e) => setDOB(e.target.value)}
               className="form-control"
@@ -118,7 +119,7 @@ const Register = () => {
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
               id="exampleInputanswer1"
-              placeholder="What is Your Favorite sports"
+              placeholder="What is Your Favorite Sport"
               required
             />
           </div>
