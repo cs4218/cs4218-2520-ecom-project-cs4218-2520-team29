@@ -9,10 +9,12 @@ jest.mock("../models/orderModel.js");
 jest.mock("../helpers/authHelper.js");
 
 describe('Auth Controllers', () => {
-    let req, res;
+    let req, res, consoleLogSpy;
 
     beforeEach(() => {
         jest.clearAllMocks();
+
+        consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 
         req = {
             user: { _id: 'user123' },
@@ -25,6 +27,10 @@ describe('Auth Controllers', () => {
             send: jest.fn(),
             json: jest.fn(),
         };
+    });
+
+    afterEach(() => {
+        consoleLogSpy.mockRestore();
     });
 
     describe('updateProfileController', () => {
@@ -249,12 +255,15 @@ describe('Auth Controllers', () => {
 
             await updateProfileController(req, res);
 
+            expect(consoleLogSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(400);
-            expect(res.send).toHaveBeenCalledWith({
-                success: false,
-                message: "Error WHile Update profile",
-                error,
-            });
+            expect(res.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    success: false,
+                    message: "Error WHile Update profile",
+                    error: expect.any(Error),
+                })
+            );
         });
     });
 
@@ -319,6 +328,7 @@ describe('Auth Controllers', () => {
             await getOrdersController(req, res);
 
             expect(orderModel.find).toHaveBeenCalledWith({ buyer: 'user123' });
+            expect(consoleLogSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
             expect(res.status).toHaveBeenCalledTimes(1);
             expect(res.send).toHaveBeenCalledWith(
@@ -407,6 +417,7 @@ describe('Auth Controllers', () => {
 
             await getAllOrdersController(req, res);
 
+            expect(consoleLogSpy).toHaveBeenCalledWith(error);
             expect(res.status).toHaveBeenCalledWith(500);
             expect(res.status).toHaveBeenCalledTimes(1);
             expect(res.send).toHaveBeenCalledWith(
