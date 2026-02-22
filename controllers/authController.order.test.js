@@ -257,4 +257,74 @@ describe('Auth Controllers', () => {
             });
         });
     });
+
+    describe('getOrdersController', () => {
+        test('should get all orders for a specific user', async () => {
+            const mockOrders = [
+                {
+                    _id: 'order1',
+                    buyer: {
+                        _id: 'user123',
+                        name: 'testUser123',
+                    },
+                    products: [{ _id: 'product1', name: 'Product 1', description: 'Description 1', price: 100}],
+                    status: 'pending',
+                },
+                {
+                    _id: 'order2',
+                    buyer: {
+                        _id: 'user123',
+                        name: 'testUser123',
+                    },
+                    products: [{ _id: 'product2', name: 'Product 2', description: 'Description 2', price: 200}],
+                    status: 'shipped',
+                }
+            ];
+
+            const secondPopulate = jest.fn().mockResolvedValue(mockOrders);
+            const firstPopulate = jest.fn().mockReturnValue({ populate: secondPopulate });
+
+            orderModel.find.mockReturnValue({ populate: firstPopulate });
+
+            await getOrdersController(req, res);
+
+            expect(orderModel.find).toHaveBeenCalledWith({ buyer: 'user123' });
+            expect(firstPopulate).toHaveBeenCalledWith('products', '-photo');
+            expect(secondPopulate).toHaveBeenCalledWith('buyer', 'name');
+            expect(res.json).toHaveBeenCalledTimes(1);
+            expect(res.json).toHaveBeenCalledWith(mockOrders);
+        });
+
+        test('should return empty array if user has no orders', async () => {
+            const secondPopulate = jest.fn().mockResolvedValue([]);
+            const firstPopulate = jest.fn().mockReturnValue({ populate: secondPopulate });
+
+            orderModel.find.mockReturnValue({ populate: firstPopulate });
+
+            await getOrdersController(req, res);
+
+            expect(orderModel.find).toHaveBeenCalledWith({ buyer: 'user123' });
+            expect(res.json).toHaveBeenCalledWith([]);
+        });
+
+        test('should handle errors when fetching orders', async () => {
+            const error = new Error('Database error');
+            const secondPopulate = jest.fn().mockRejectedValue(error);
+            const firstPopulate = jest.fn().mockReturnValue({ populate: secondPopulate });
+
+            orderModel.find.mockReturnValue({ populate: firstPopulate });
+
+            await getOrdersController(req, res);
+
+            expect(orderModel.find).toHaveBeenCalledWith({ buyer: 'user123' });
+            expect(res.status).toHaveBeenCalledWith(500);
+            expect(res.status).toHaveBeenCalledTimes(1);
+            expect(res.send).toHaveBeenCalledWith({
+                success: false,
+                message: "Error WHile Geting Orders",
+                error,
+            });
+            expect(res.send).toHaveBeenCalledTimes(1);
+        });
+    });
 });
