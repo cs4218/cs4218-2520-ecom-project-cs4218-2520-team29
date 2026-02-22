@@ -184,3 +184,6 @@ To begin unit testing with Jest in your project, follow these steps:
       - productCategoryController
       - braintreeTokenController
       - brainTreePaymentController
+
+### URL to Github Actions CI Page:
+#### https://github.com/cs4218/cs4218-2520-ecom-project-cs4218-2520-team29/actions/runs/22284877816/job/64461344736?pr=7
