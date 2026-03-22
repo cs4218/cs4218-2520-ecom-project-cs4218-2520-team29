@@ -400,7 +400,7 @@ describe('Auth Controllers', () => {
 
             expect(firstPopulate).toHaveBeenCalledWith('products', '-photo');
             expect(secondPopulate).toHaveBeenCalledWith('buyer', 'name');
-            expect(sort).toHaveBeenCalledWith({ createdAt: '-1' });
+            expect(sort).toHaveBeenCalledWith({ createdAt: -1 });
             expect(res.json).toHaveBeenCalledWith(mockOrders);
         });
 
