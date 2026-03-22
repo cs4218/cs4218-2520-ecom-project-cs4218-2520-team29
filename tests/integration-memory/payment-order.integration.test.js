@@ -1,3 +1,26 @@
+// Charles Lim Jun Wei, A0277527R
+
+/*
+Integration testing for Payment -> Orders workflow (Success and failure paths).
+
+It verifies the interaction between the BrainTree payment routes, authentication middleware, Payment controller logic,
+mocked Braintree gateway, and Orders database model. The two controllers tested are brainTreePaymentController and
+braintreeTokenController.
+
+Top-down approach is used:
+(top) API endpoint -> middleware -> payment controller -> payment gateway / Order model -> DB (down)
+
+The tests simulate requests to the Braintree token and payment endpoints. For payment requests, the middleware
+verifies the JWT token and attaches user information to the request. The controller then calculates the cart total,
+invokes the Braintree gateway, and creates an order record in the database when payment succeeds.
+
+The tests verify correct token generation behaviour, correct cart total submission, successful order creation on
+payment success, no order creation on payment failure, proper rejection of unauthenticated requests, and correct
+buyer association for orders created by different authenticated users.
+
+Only the external Braintree service is mocked because it is a third-party network dependency.
+*/
+
 import request from "supertest";
 import mongoose from "mongoose";
 import JWT from "jsonwebtoken";
@@ -77,6 +100,7 @@ const successResult = {
 };
 
 describe("GET /api/v1/product/braintree/token — braintreeTokenController", () => {
+    // Charles Lim Jun Wei, A0277527R
     test("should return 200 and a clientToken when Braintree generates successfully", async () => {
         mockGenerate.mockImplementation((opts, cb) =>
             cb(null, { clientToken: "fake-client-token-abc" })
@@ -87,7 +111,7 @@ describe("GET /api/v1/product/braintree/token — braintreeTokenController", () 
         expect(res.status).toBe(200);
         expect(res.body.clientToken).toBe("fake-client-token-abc");
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should return 500 when Braintree token generation fails", async () => {
         mockGenerate.mockImplementation((opts, cb) =>
             cb({ message: "Gateway unavailable" }, null)
@@ -100,6 +124,7 @@ describe("GET /api/v1/product/braintree/token — braintreeTokenController", () 
 });
 
 describe("POST /api/v1/product/braintree/payment — brainTreePaymentController", () => {
+    // Charles Lim Jun Wei, A0277527R
     test("should return 200, save order to DB, and set buyer correctly on success", async () => {
         const { user, token } = await createUserWithToken();
         const cartItems = [makeCartItem({ price: 10 }), makeCartItem({ price: 20 })];
@@ -128,7 +153,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         // Status
         expect(savedOrder.status).toBe("Not Process");
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should charge the correct total amount to Braintree", async () => {
         const { token } = await createUserWithToken({ email: "total@test.com" });
         const cartItems = [
@@ -147,7 +172,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         expect(saleArgs.amount).toBe(20);
         expect(saleArgs.options.submitForSettlement).toBe(true);
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should return 500 and NOT save any order when Braintree transaction fails", async () => {
         const { token } = await createUserWithToken({ email: "fail@test.com" });
         const cartItems = [makeCartItem({ price: 10 })];
@@ -166,7 +191,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         const orderCount = await orderModel.countDocuments();
         expect(orderCount).toBe(0);
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should return 500 and NOT save any order when Braintree result is falsy", async () => {
         const { token } = await createUserWithToken({ email: "falsy@test.com" });
 
@@ -180,7 +205,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         expect(res.status).toBe(500);
         expect(await orderModel.countDocuments()).toBe(0);
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should return 401 and NOT save any order when no auth token is provided", async () => {
         const res = await request(server)
             .post("/api/v1/product/braintree/payment")
@@ -193,7 +218,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         // No order saved
         expect(await orderModel.countDocuments()).toBe(0);
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should return 401 and NOT save any order when token is invalid", async () => {
         const res = await request(server)
             .post("/api/v1/product/braintree/payment")
@@ -204,7 +229,7 @@ describe("POST /api/v1/product/braintree/payment — brainTreePaymentController"
         expect(mockSale).not.toHaveBeenCalled();
         expect(await orderModel.countDocuments()).toBe(0);
     });
-
+    // Charles Lim Jun Wei, A0277527R
     test("should save separate orders for separate authenticated users", async () => {
         const { user: userA, token: tokenA } = await createUserWithToken({
             email: "usera@test.com",
