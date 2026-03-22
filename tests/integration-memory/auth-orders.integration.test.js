@@ -1,13 +1,26 @@
 // Charles Lim Jun Wei, A0277527R
 
 /*
-Integration test for Auth -> Orders.
+Integration test for Auth → Orders workflow.
+
+Verifies that a user who authenticates through the real login endpoint receives a valid token, and that token is
+accepted by the authentication middleware to access the Orders controller.
+
+This covers the two components not exercised by the orders integration tests:
+  - Login endpoint
+  - Token generation logic inside the login controller
+
+The orders integration tests bypass these by calling JWT.sign() directly.
+This test closes that gap by using the real login flow end-to-end.
 */
 
 import request from "supertest";
 import mongoose from "mongoose";
 import { hashPassword } from "../../helpers/authHelper.js";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import server from "../../server.js";
+import orderModel from "../../models/orderModel.js";
+import userModel from "../../models/userModel.js";
 
 let mongoServer;
 
@@ -27,10 +40,6 @@ afterEach(async () => {
         await collections[key].deleteMany({});
     }
 });
-
-const { default: server } = await import("../../server.js");
-const { default: orderModel } = await import("../../models/orderModel.js");
-const { default: userModel } = await import("../../models/userModel.js");
 
 const TEST_PASSWORD = "password123";
 

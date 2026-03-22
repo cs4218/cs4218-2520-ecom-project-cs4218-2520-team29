@@ -1,13 +1,14 @@
 // Charles Lim Jun Wei, A0277527R
 
 /*
-Integration testing for Orders and its related components.
+Integration testing for Orders (entire) workflow.
 
-It verifies the interaction between the Orders API endpoint, authentication middleware, Orders controllers logic,
-and Orders database model when retrieving user-specific orders.
+It verifies the interaction between the Orders API routes, authentication middleware, Orders controllers logic,
+and Orders model/database when retrieving user-specific orders. Three controllers are covered: getOrdersController,
+getAllOrdersController, and orderStatusController.
 
-Incremental top-down approach is used:
-(top) API endpoint -> middleware -> controller -> model -> DB (down)
+Top-down approach is used:
+(top) Order API endpoint -> middleware -> Order controllers -> Order model -> DB (down)
 
 The tests simulated an authenticated request which is processed by the middle to verify the JWT token and attach user
 information to the request. The controller then queries the database for orders associated with the authenticated user
@@ -15,7 +16,8 @@ and returns the results.
 
 The tests verify that authentication is correctly enforced, only the relevant user's orders are retrieved and the
 response structure is correct. Unauthorized requests are also validated to ensure they are rejected before reaching
-the controller.
+the controller. The tests also verify that admin can receive orders and update order status, while non-admin and
+unauthenticated requests are rejected.
 
 Internal modules are kept real to preserve integration behaviour. Only JWT tokens are generated directly to simulate
 authentication without invoking the full login workflow (since its being tested elsewhere).
