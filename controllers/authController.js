@@ -265,7 +265,8 @@ export const getAllOrdersController = async (req, res) => {
       .find({})
       .populate("products", "-photo")
       .populate("buyer", "name")
-      .sort({ createdAt: "-1" });
+        // Charles Lim Jun Wei, A0277527R
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     console.log(error);
