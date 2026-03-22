@@ -8,8 +8,8 @@ export const testUsers = {
     password_confirm: 'Password@123',
     phone: '1234567890',
     address: '123 Test St',
-    question: 'What is your favorite color?',
-    answer: 'blue',
+    dob: '2004-11-18',
+    answer: 'basketball',
   },
   validUser2: {
     name: 'Second Test User',
@@ -18,8 +18,8 @@ export const testUsers = {
     password_confirm: 'SecondPass@123',
     phone: '9876543210',
     address: '456 Test Ave',
-    question: 'What is your pet name?',
-    answer: 'fluffy',
+    dob: '2000-01-01',
+    answer: 'tennis',
   },
   existingUser: {
     name: 'Existing User',
@@ -28,7 +28,7 @@ export const testUsers = {
     password_confirm: 'ExistingPass@123',
     phone: '5555555555',
     address: '789 Existing Lane',
-    question: 'Favorite sport?',
+    dob: '1990-01-01',
     answer: 'soccer',
   },
 };

@@ -206,3 +206,73 @@ To begin unit testing with Jest in your project, follow these steps:
 
 ### MS1 CI URL:
 #### https://github.com/cs4218/cs4218-2520-ecom-project-cs4218-2520-team29/actions/runs/22291359700/job/64479084483
+
+## MS2
+### Integration Testing Workload Distribution
+### 1. Chia Jia Ye (A0286580U)
+#### Components Tested:
+The integration tests cover multiple backend components:
+
+- **Routes** (`/api/v1/auth/*`)
+- **Controllers**
+  - `registerController`
+  - `loginController`
+- **Middleware**
+  - `requireSignIn`
+  - `isAdmin`
+- **Database (MongoDB)**
+  - user creation
+  - duplicate email handling
+  - data persistence
+
+---
+
+#### Test Suites Implemented:
+#### 1. User Registration Integration Tests (`authRegister.test.js`)
+
+Focus:
+- Input validation
+- Database persistence
+- Controller–model interaction
+
+Key scenarios:
+- Successful registration with valid data
+- Duplicate email rejection
+- Email format validation
+- Password strength validation
+- Password confirmation mismatch
+- Missing required fields
+- Input trimming and normalization
+- Registration followed by login
+
+---
+
+#### 2. User Login Integration Tests (`authLogin.test.js`)
+
+Focus:
+- Authentication flow
+- JWT token generation
+- Controller–database interaction
+
+Key scenarios:
+- Successful login with valid credentials
+- Rejection of invalid credentials (wrong password / non-existent user)
+- Validation of missing fields
+- JWT token generation and structure
+- Ensuring password is not exposed in response
+- Register → Login workflow validation
+
+---
+
+#### 3. Authentication Middleware Integration Tests (`authMiddleware.test.js`)
+
+Focus:
+- Authorization and access control
+- Middleware integration with authentication
+
+Key scenarios:
+- Access to protected routes with valid token
+- Rejection of requests without token
+- Rejection of invalid tokens
+- Role-based access control (admin vs user)
+- Verification of JWT expiration claim
