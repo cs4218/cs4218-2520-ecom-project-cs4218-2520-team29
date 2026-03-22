@@ -6,7 +6,7 @@ import { jest } from '@jest/globals';
 // Set NODE_ENV to test
 process.env.NODE_ENV = 'test';
 
-dotenv.config();
+dotenv.config({ path: '.env.test' });
 
 // Suppress console logs during tests
 const originalLog = console.log;
@@ -45,7 +45,7 @@ afterAll(async () => {
 });
 
 // Clear database between each test
-beforeEach(async () => {
+afterEach(async () => {
   try {
     const collections = await mongoose.connection.db.collections();
     for (const collection of collections) {
