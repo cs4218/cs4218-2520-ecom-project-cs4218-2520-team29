@@ -95,7 +95,9 @@ export const registerController = async (req, res) => {
 //POST LOGIN
 export const loginController = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    email = email?.trim().toLowerCase();
+
     //validation
     if (!email || !password) {
       return res.status(400).send({
@@ -103,6 +105,16 @@ export const loginController = async (req, res) => {
         message: "Invalid email or password",
       });
     }
+
+    // validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).send({
+        success: false,
+        message: "Please provide a valid email address",
+      });
+    }
+
     //check user
     const user = await userModel.findOne({ email });
     if (!user) {

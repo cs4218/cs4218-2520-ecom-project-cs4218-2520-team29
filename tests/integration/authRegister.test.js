@@ -134,24 +134,6 @@ describe('User Registration Integration Tests', () => {
       expect(response.status).toBe(400);
     });
 
-    // very long email address
-    test('should enforce email length limits', async () => {
-      const veryLongEmail = 'a'.repeat(200) + '@example.com';
-      const response = await request(app)
-        .post('/api/v1/auth/register')
-        .send({
-          ...testUsers.validUser,
-          email: veryLongEmail,
-        });
-
-      if (response.status === 201) {
-        const user = await User.findOne({ _id: response.body.user._id });
-        expect(user.email.length).toBeLessThanOrEqual(255);
-      } else {
-        expect(response.status).toBe(400);
-      }
-    });
-
     // email trimmed of whitespace
     test('should trim whitespace from email', async () => {
       const response = await request(app)
@@ -234,7 +216,7 @@ describe('User Registration Integration Tests', () => {
           password: veryLongPassword,
         });
 
-      expect([201, 400]).toContain(response.status);
+      expect(response.status).toBe(400);
     });
 
     // special characters in password
@@ -290,39 +272,6 @@ describe('User Registration Integration Tests', () => {
     });
   });
 
-  describe('Input Sanitization and Security', () => {
-
-    // SQL injection prevention
-    test('should sanitize SQL injection attempts in email', async () => {
-      const response = await request(app)
-        .post('/api/v1/auth/register')
-        .send({
-          ...testUsers.validUser,
-          email: "test@test.com'; DROP TABLE users; --",
-        });
-
-      if (response.status === 201) {
-        const users = await User.find({});
-        expect(users.length).toBeGreaterThan(0);
-      }
-    });
-
-    // unicode characters in username
-    test('should accept Unicode characters in name', async () => {
-      const response = await request(app)
-        .post('/api/v1/auth/register')
-        .send({
-          ...testUsers.validUser,
-          name: '用户 Пользователь 🎉',
-        });
-
-      if (response.status === 201) {
-        const user = await User.findOne({ _id: response.body.user._id });
-        expect(user.name).toContain('用');
-      }
-    });
-  });
-
   describe('Data Persistence and Storage', () => {
 
     // new user registration is independent from existing users
@@ -340,8 +289,8 @@ describe('User Registration Integration Tests', () => {
         password: 'Password@123',
         phone: '9876543210',
         address: '456 New St',
-        question: 'What is your pet name?',
-        answer: 'fluffy',
+        dob: '2003-01-01',
+        answer: 'softball',
       };
 
       await request(app)

@@ -206,3 +206,157 @@ To begin unit testing with Jest in your project, follow these steps:
 
 ### MS1 CI URL:
 #### https://github.com/cs4218/cs4218-2520-ecom-project-cs4218-2520-team29/actions/runs/22291359700/job/64479084483
+
+---
+
+## MS2
+### Integration Testing Workload Distribution
+### 1. Chia Jia Ye (A0286580U)
+#### Components Tested:
+The integration tests cover multiple backend components:
+
+- **Routes** (`/api/v1/auth/*`)
+- **Controllers**
+  - `registerController`
+  - `loginController`
+- **Middleware**
+  - `requireSignIn`
+  - `isAdmin`
+- **Database (MongoDB)**
+  - user creation
+  - duplicate email handling
+  - data persistence
+
+---
+
+#### Test Suites Implemented:
+#### 1. User Registration Integration Tests (`authRegister.test.js`)
+
+Focus:
+- Input validation
+- Database persistence
+- Controller–model interaction
+
+Key scenarios:
+- Successful registration with valid data
+- Duplicate email rejection
+- Email format validation
+- Password strength validation
+- Password confirmation mismatch
+- Missing required fields
+- Input trimming and normalization
+- Registration followed by login
+
+---
+
+#### 2. User Login Integration Tests (`authLogin.test.js`)
+
+Focus:
+- Authentication flow
+- JWT token generation
+- Controller–database interaction
+
+Key scenarios:
+- Successful login with valid credentials
+- Rejection of invalid credentials (wrong password / non-existent user)
+- Validation of missing fields
+- JWT token generation and structure
+- Ensuring password is not exposed in response
+- Register → Login workflow validation
+
+---
+
+#### 3. Authentication Middleware Integration Tests (`authMiddleware.test.js`)
+
+Focus:
+- Authorization and access control
+- Middleware integration with authentication
+
+Key scenarios:
+- Access to protected routes with valid token
+- Rejection of requests without token
+- Rejection of invalid tokens
+- Role-based access control (admin vs user)
+- Verification of JWT expiration claim
+
+---
+
+### UI Testing Workload Distribution
+### 1. Chia Jia Ye (A0286580U)
+#### Components Tested:
+
+The UI tests cover multiple features and pages:
+
+- **Authentication Pages**
+  - Register (`/register`)
+  - Login (`/login`)
+
+- **Protected Pages**
+  - Profile (`/dashboard/user/profile`)
+
+- **Navigation Components**
+  - Header (login/logout, user dropdown)
+
+---
+
+#### Test Suites Implemented:
+
+#### 1. Registration UI Tests (`register.spec.js`)
+
+These tests simulate user registration flows through the UI.
+
+Scenarios tested include:
+- Successful registration and redirection to login page
+- Registration with weak password
+- Registration with mismatched passwords
+- Registration with duplicate email
+- Registration with invalid email format
+- Registration with missing required fields
+
+---
+
+#### 2. Login UI Tests (`login.spec.js`)
+
+These tests validate the login process from a user perspective.
+
+Scenarios tested include:
+- Successful login with valid credentials
+- Login with incorrect password
+- Login with unregistered email
+- Login with missing required fields
+
+---
+
+#### 3. Profile UI Tests (`profile.spec.js`)
+
+These tests verify authenticated user behavior and profile management.
+
+Scenarios tested include:
+- Accessing profile page after login
+- Profile form is pre-filled with user data
+- Updating profile information successfully
+- Email field is visible but not editable
+
+---
+
+#### 4. Logout UI Tests (`logout.spec.js`)
+
+These tests validate logout functionality and session handling.
+
+Scenarios tested include:
+- Successful logout and redirection to login page
+- Navigation bar updates to show Register/Login options after logout
+- Access to protected routes is restricted after logout
+- Authentication data is cleared from localStorage
+
+---
+
+#### 5. Authentication Flow Tests (`authFlow.spec.js`)
+
+These tests validate full end-to-end user journeys across multiple features.
+
+Scenarios tested include:
+- Register → Redirect → Login → Successful authentication
+- Login attempt before registration fails → Register → Login succeeds
+
+These scenarios demonstrate interaction across multiple components and pages.

@@ -27,4 +27,5 @@ export default {
 
     testTimeout: 15000,
     passWithNoTests: true,
+    maxWorkers: 1,
 };
