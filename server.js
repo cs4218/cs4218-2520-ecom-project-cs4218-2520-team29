@@ -8,9 +8,9 @@ import connectDB from './config/db.js';
 dotenv.config();
 
 // Database connection
-if (process.env.NODE_ENV !== "test") {
-  connectDB();
-}
+//if (process.env.NODE_ENV !== "test") {
+connectDB();
+//}
 
 // Create Express app
 const app = express();
