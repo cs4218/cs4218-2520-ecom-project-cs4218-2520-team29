@@ -281,6 +281,74 @@ Key scenarios:
 
 ---
 
+### 2. Dexter Wong Xing You (A0255437Y)
+
+#### Components Tested:
+The integration tests focus on product-related workflows across backend components:
+
+- **Routes** (`/api/v1/product/*`)
+- **Controllers**
+  - `createProductController`
+  - `updateProductController`
+  - `getProductController`
+- **Middleware**
+  - `requireSignIn`
+  - `isAdmin`
+- **Database (MongoDB)**
+  - product creation
+  - product updates
+  - category association
+  - data consistency across endpoints
+
+---
+
+#### Test Suites Implemented:
+
+#### 1. Product Listing Flow Integration Tests (`productListingFlow.test.js`)
+
+Focus:
+- Retrieval of products across endpoints
+- Consistency between listing and single product views
+
+Key scenarios:
+- Fetching all products successfully
+- Retrieving a product by slug
+- Ensuring consistency between listing and detailed view
+- Validation of response structure
+- Handling of empty or invalid queries
+
+---
+
+#### 2. Admin Product Creation → Listing Integration Tests (`adminProductCreationListing.test.js`)
+
+Focus:
+- End-to-end product creation flow
+- Integration between admin routes and database
+
+Key scenarios:
+- Successful product creation by admin
+- Validation of required fields
+- Authentication and authorization checks
+- Persistence of product data in database
+- Newly created product appears in product listing
+
+---
+
+#### 3. Admin Product Update → Retrieval Integration Tests (`adminProductUpdateRetrieval.test.js`)
+
+Focus:
+- Product update workflow
+- Data consistency after updates
+
+Key scenarios:
+- Successful update of product details
+- Updated values reflected in product retrieval
+- Validation of required fields during update
+- Unauthorized update attempts are rejected
+- Ensuring only the targeted product is updated
+
+---
+
 ### UI Testing Workload Distribution
 ### 1. Chia Jia Ye (A0286580U)
 #### Components Tested:
@@ -299,64 +367,55 @@ The UI tests cover multiple features and pages:
 
 ---
 
+### 2. Dexter Wong Xing You (A0255437Y)
+
+#### Components Tested:
+
+The UI tests focus on admin-side product and category management:
+
+- **Admin Pages**
+  - Create Category (`/dashboard/admin/create-category`)
+  - Create Product (`/dashboard/admin/create-product`)
+  - Update Product (`/dashboard/admin/products`)
+
+---
+
 #### Test Suites Implemented:
 
-#### 1. Registration UI Tests (`register.spec.js`)
+#### 1. Create Category UI Tests (`createCategory.spec.js`)
 
-These tests simulate user registration flows through the UI.
+Focus:
+- Admin category management workflow
 
 Scenarios tested include:
-- Successful registration and redirection to login page
-- Registration with weak password
-- Registration with mismatched passwords
-- Registration with duplicate email
-- Registration with invalid email format
-- Registration with missing required fields
+- Creating a new category successfully
+- Editing an existing category
+- Deleting a category
+- Verifying category updates in table view
 
 ---
 
-#### 2. Login UI Tests (`login.spec.js`)
+#### 2. Create Product UI Tests (`createProduct.spec.js`)
 
-These tests validate the login process from a user perspective.
+Focus:
+- Admin product creation workflow
 
 Scenarios tested include:
-- Successful login with valid credentials
-- Login with incorrect password
-- Login with unregistered email
-- Login with missing required fields
+- Create product page loads with required fields
+- Admin fills and submits product creation form
+- Navigation between admin pages after product creation
+- Basic validation of form interaction
 
 ---
 
-#### 3. Profile UI Tests (`profile.spec.js`)
+#### 3. Update Product UI Tests (`updateProduct.spec.js`)
 
-These tests verify authenticated user behavior and profile management.
-
-Scenarios tested include:
-- Accessing profile page after login
-- Profile form is pre-filled with user data
-- Updating profile information successfully
-- Email field is visible but not editable
-
----
-
-#### 4. Logout UI Tests (`logout.spec.js`)
-
-These tests validate logout functionality and session handling.
+Focus:
+- Admin product update workflow
 
 Scenarios tested include:
-- Successful logout and redirection to login page
-- Navigation bar updates to show Register/Login options after logout
-- Access to protected routes is restricted after logout
-- Authentication data is cleared from localStorage
-
----
-
-#### 5. Authentication Flow Tests (`authFlow.spec.js`)
-
-These tests validate full end-to-end user journeys across multiple features.
-
-Scenarios tested include:
-- Register → Redirect → Login → Successful authentication
-- Login attempt before registration fails → Register → Login succeeds
-
-These scenarios demonstrate interaction across multiple components and pages.
+- Opening an existing product (Novel) in update page
+- Updating product name
+- Updating product description
+- Verifying updates are reflected in admin product list
+- Reverting product back to original values to maintain database consistency
