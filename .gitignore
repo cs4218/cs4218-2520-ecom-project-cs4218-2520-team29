@@ -4,6 +4,7 @@ node_modules
 /blob-report/
 /playwright/.cache/
 /coverage/
+coverage
 .env
 .env.test
 
