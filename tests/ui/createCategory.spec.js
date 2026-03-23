@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 
 const admin = {
   email: 'admin@gmail.com',
-  password: 'Naruto2001!',
+  password: 'Admin123!',
 };
 
 const uniqueCategory = () => `Category_${Date.now()}`;
@@ -16,13 +16,11 @@ const loginAsAdmin = async (page) => {
   await page.getByRole('textbox', { name: 'Enter Your Password' }).fill(admin.password);
   await page.getByRole('button', { name: 'LOGIN' }).click();
 
-  // wait for login to finish
-  await page.waitForLoadState('networkidle');
+  await expect(page.getByText('VIRTUAL VAULT')).toBeVisible();
 };
 
 const goToCategoryPage = async (page) => {
   await page.goto('http://localhost:3000/dashboard/admin/create-category');
-  await page.waitForLoadState('networkidle');
   await expect(page.getByText('Manage Category')).toBeVisible();
 };
 
@@ -45,7 +43,7 @@ test.describe('Admin Create Category UI Tests', () => {
     await page.getByPlaceholder('Enter new category').fill(name);
     await page.getByRole('button', { name: 'Submit' }).click();
 
-    await expect(page.getByText(name)).toBeVisible();
+    await expect(page.locator('table')).toContainText(name);
   });
 
   test('creating category with empty input should stay on category page', async ({ page }) => {
@@ -61,7 +59,7 @@ test.describe('Admin Create Category UI Tests', () => {
 
     await page.getByPlaceholder('Enter new category').fill(name);
     await page.getByRole('button', { name: 'Submit' }).click();
-    await expect(page.getByText(name)).toBeVisible();
+    await expect(page.locator('table')).toContainText(name);
 
     await page.getByRole('button', { name: 'Edit' }).last().click();
 
@@ -69,7 +67,7 @@ test.describe('Admin Create Category UI Tests', () => {
     await dialogInput.fill(updated);
     await page.getByRole('dialog').getByRole('button', { name: 'Submit' }).click();
 
-    await expect(page.getByText(updated)).toBeVisible();
+    await expect(page.locator('table')).toContainText(updated);
   });
 
   test('admin can delete a category', async ({ page }) => {
