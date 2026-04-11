@@ -583,3 +583,37 @@ The UI tests focus on user-side product browsing, product details viewing, and o
 - Verifying direct access to the Orders page works correctly for an authenticated user
 
 ---
+## MS3
+### Performance Testing Distribution
+### 1. Chia Jia Ye (A0286580U)
+- Implemented load testing using Grafana k6 to evaluate system performance under concurrent user activity.
+
+- Tested two key endpoints:
+  - `POST /api/v1/auth/login` (authentication flow)
+  - `GET /api/v1/auth/orders` (authenticated order retrieval)
+
+- Designed tests using a ramping virtual user model:
+  - 0 → 20 users over 1 minute (ramp-up)
+  - sustained at 20 users for 3 minutes
+  - 20 → 0 users over 1 minute (ramp-down)
+  - included 1-second think time between requests to simulate realistic usage
+
+- For login testing:
+  - each virtual user repeatedly sends login requests
+  - validates response status, success flag, and presence of token
+
+- For orders testing:
+  - implemented a setup phase to authenticate once
+  - reused the returned token for subsequent requests
+  - isolates performance of order retrieval from login overhead
+
+- Evaluated performance using the following metrics:
+  - average, median, and p95 response time
+  - error rate
+  - throughput (requests per second)
+  - checks pass rate (response correctness)
+
+- Defined thresholds:
+  - error rate < 1%
+  - p95 response time < 500ms
+  - checks pass rate > 99%
