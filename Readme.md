@@ -618,6 +618,7 @@ The UI tests focus on user-side product browsing, product details viewing, and o
   - p95 response time < 500ms
   - checks pass rate > 99%
 
+---
 
   ### 2. Dexter Wong Xing You (A0255437Y)
 
@@ -639,3 +640,50 @@ The UI tests focus on user-side product browsing, product details viewing, and o
   - p95 response time < 2000ms
   - checks pass rate > 95%
 - Focused on recovery behaviour after the spike, making this distinct from steady-state load testing.
+
+---
+
+### 3. Charles Lim Jun Wei (A0277527R)
+
+- Non-Functional Testing: **Stress Testing**
+- Implemented stress testing using **Grafana k6** to evaluate system performance, degradation behaviour, 
+and breaking points under `tests/stress-tests`
+
+**Stress Test Scripts:**
+- `stress-login.test.js`
+    - Focused test on authentication endpoint (`/api/v1/auth/login`)
+    - Identifies early degradation due to auth load and evaluates recovery behaviour
+
+- `stress-browse.test.js`
+    - Tests unauthenticated read endpoints:
+        - category retrieval
+        - product listing
+        - search
+    - Establishes baseline performance for read-heavy operations
+
+- `stress-product-detail.test.js`
+    - Isolates product detail flow:
+        - single product retrieval
+        - related products
+    - Identifies performance of high-traffic product pages during major sale scenarios
+
+- `stress-journey.test.js`
+    - Simulates end-to-end user behaviour:
+        - login (once per VU)
+        - browse → search → product → orders
+    - Evaluates system behaviour under realistic user interactions
+
+**Results Generated:**
+- `results-login.txt`
+- `results-browse.txt`
+- `results-product-detail.txt`
+- `results-journey.txt`
+
+**Tests Configurations:**
+- Designed stage-based load profiles (gradual ramp-up, peak, recovery)
+- Implemented metrics:
+    - p95 latency
+    - functional error rate
+    - SLA breach rate
+
+---
