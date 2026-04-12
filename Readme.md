@@ -685,5 +685,10 @@ and breaking points under `tests/stress-tests`
     - p95 latency
     - functional error rate
     - SLA breach rate
+- Defined thresholds based on expected user experience:
+  - Login: p95 < 5s (authentication can tolerate slightly higher latency)
+  - Browse/Search: p95 < 2s (expected to remain responsive under load)
+  - Product detail: p95 < 3s (moderate complexity due to additional data retrieval)
+  - Functional error rate < 5–10% depending on test scenario
 
 ---
