@@ -617,3 +617,25 @@ The UI tests focus on user-side product browsing, product details viewing, and o
   - error rate < 1%
   - p95 response time < 500ms
   - checks pass rate > 99%
+
+
+  ### 2. Dexter Wong Xing You (A0255437Y)
+
+- Implemented spike testing using Grafana k6 to evaluate system behaviour under sudden traffic surges.
+- Tested endpoint:
+  - `GET /api/v1/product/product-list/1`
+- Designed a spike scenario with:
+  - baseline load at 5 users
+  - sudden spike to 80 users
+  - sustained spike period
+  - recovery phase back to baseline
+- Evaluated:
+  - p95 response time
+  - error rate
+  - requests per second
+  - checks pass rate
+- Defined thresholds:
+  - error rate < 5%
+  - p95 response time < 2000ms
+  - checks pass rate > 95%
+- Focused on recovery behaviour after the spike, making this distinct from steady-state load testing.
