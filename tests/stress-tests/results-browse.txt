@@ -1,0 +1,30 @@
+
+STRESS TEST 2: BROWSE AND SEARCH (UNAUTHENTICATED)
+====================================================
+Total requests           : 24747
+HTTP failed requests     : 0.00%
+Functional error rate    : 0.00%
+SLA breach rate (>2s)    : 33.64%
+
+Per-endpoint p95 (overall):
+Endpoint            p95 latency     
+------------------------------------
+Categories          2851ms          
+Product list        2694ms          
+Search              2622ms          
+
+Per-stage breakdown:
+Load          p95 latency     func. error     SLA breach      
+--------------------------------------------------------------
+50 VUs        412ms           0.0%            0.6%            
+100 VUs       480ms           0.0%            0.0%            
+200 VUs       1344ms          0.0%            1.8%            
+300 VUs       1728ms          0.0%            1.8%            
+400 VUs       2504ms          0.0%            43.2%           
+500 VUs       3045ms          0.0%            100.0%          
+Recovery      2920ms          0.0%            43.3%           
+
+Degradation starts at : 400 VUs  (SLA breach rate > 5%)
+Failure starts at     : not reached  (functional error rate > 5%)
+
+Thresholds passed : NO ✗

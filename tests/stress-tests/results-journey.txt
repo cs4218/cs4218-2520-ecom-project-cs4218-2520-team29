@@ -1,0 +1,31 @@
+
+STRESS TEST 3: FLASH SALE USER JOURNEY
+========================================
+Total requests           : 19877
+HTTP failed requests     : 0.00%
+Functional error rate    : 0.00%
+SLA breach rate (>5s)    : 0.18%
+
+Per-step p95 (overall):
+Step                            p95 latency     
+------------------------------------------------
+1. Login (once per VU)          2545ms          
+2. Browse product list          2163ms          
+3. Search                       2144ms          
+4. Product detail               3990ms          
+5. Orders confirmation          2136ms          
+
+Per-stage breakdown:
+Load          p95 latency     login p95       func. error     SLA breach      
+------------------------------------------------------------------------------
+50 VUs        1337ms          1361ms          0.0%            0.0%            
+100 VUs       405ms           309ms           0.0%            0.0%            
+200 VUs       1359ms          885ms           0.0%            0.0%            
+300 VUs       2188ms          1811ms          0.0%            0.0%            
+400 VUs       3119ms          2106ms          0.0%            0.1%            
+Recovery      3966ms          2714ms          0.0%            0.2%            
+
+Degradation starts at : not reached  (SLA breach rate > 5%)
+Failure starts at     : not reached  (functional error rate > 10%)
+
+Thresholds passed : NO ✗
