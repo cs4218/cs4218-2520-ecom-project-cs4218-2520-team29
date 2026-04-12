@@ -1,0 +1,23 @@
+
+STRESS TEST 1: LOGIN BREAKING POINT
+=====================================
+Total requests           : 7136
+HTTP failed requests     : 0.00%
+Functional error rate    : 0.00%
+SLA breach rate (>5s)    : 36.77%
+Overall login p95        : 8650ms
+
+Per-stage breakdown:
+Load          p95 latency     func. error     SLA breach      
+--------------------------------------------------------------
+50 VUs        658ms           0.0%            0.0%            
+100 VUs       1400ms          0.0%            0.0%            
+200 VUs       3841ms          0.0%            0.0%            
+300 VUs       6321ms          0.0%            59.5%           
+400 VUs       8822ms          0.0%            100.0%          
+Recovery      8961ms          0.0%            38.7%           
+
+Degradation starts at : 300 VUs  (SLA breach rate > 5%)
+Failure starts at     : not reached  (functional error rate > 10%)
+
+Thresholds passed : NO ✗

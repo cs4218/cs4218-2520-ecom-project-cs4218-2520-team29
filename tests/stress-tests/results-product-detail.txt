@@ -1,0 +1,29 @@
+
+STRESS TEST 3: PRODUCT DETAIL PAGE
+===================================
+Total requests           : 13195
+HTTP failed requests     : 2.46%
+Functional error rate    : 0.11%
+SLA breach rate (>3s)    : 33.96%
+
+Per-endpoint p95 (overall):
+Endpoint              p95 latency     
+--------------------------------------
+Product detail        4150ms          
+Related products      4446ms          
+Whole detail page     4487ms          
+
+Per-stage breakdown:
+Load          p95 latency     func. error     SLA breach      
+--------------------------------------------------------------
+50 VUs        408ms           0.0%            0.0%            
+100 VUs       893ms           0.0%            0.0%            
+200 VUs       2054ms          0.0%            0.0%            
+300 VUs       3796ms          0.0%            30.6%           
+400 VUs       4869ms          0.0%            99.0%           
+Recovery      4525ms          0.5%            40.0%           
+
+Degradation starts at : 300 VUs  (SLA breach rate > 5%)
+Failure starts at     : not reached  (functional error rate > 5%)
+
+Thresholds passed : NO ✗
